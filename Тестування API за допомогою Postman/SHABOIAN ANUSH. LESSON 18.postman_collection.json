@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "52c030e8-d505-4939-9d52-3af9080b774d",
+		"name": "SHABOIAN ANUSH. LESSON 18",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26168404"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{Name of user}}\",\r\n    \"age\": 26,\r\n    \"gender\": \"female\",\r\n    \"city\": \"Kyiv\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user valid city (Poltava instead of Kyiv) (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{Name of user}}\",\r\n    \"age\": 26,\r\n    \"gender\": \"female\",\r\n    \"city\": \"Poltava\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user invalid age (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response with Body should be error 400\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"Validation error: age is invalid\");\r",
+							"});\r",
+							"pm.test(\"response must be invalid and have a body\", function () {\r",
+							"     pm.response.to.be.badRequest;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{Name of user}}\",\r\n    \"age\": 1000,\r\n    \"gender\": \"female\",\r\n    \"city\": \"Kyiv\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find user with ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code name is OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"var schema = {\r",
+							"    \"items\": {\r",
+							"        \"type\": \"boolean\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"var data1 = [true, false];\r",
+							"var data2 = [true, 123];\r",
+							"\r",
+							"pm.test('Schema on age is valid', function () {\r",
+							"    pm.expect(tv4.validate(\"age\", 26,)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=b8b0c94c-3573-4688-b838-f79673e891b5",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b8b0c94c-3573-4688-b838-f79673e891b5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find user with incomplete id   (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code name is OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"var schema = {\r",
+							"    \"items\": {\r",
+							"        \"type\": \"boolean\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"var data1 = [true, false];\r",
+							"var data2 = [true, 123];\r",
+							"\r",
+							"pm.test('Schema on age is valid', function () {\r",
+							"    pm.expect(tv4.validate(\"age\", 26,)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=e13aa18a-974c-41b0-b612-",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "e13aa18a-974c-41b0-b612-"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find user with non-existent  id   (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code name is OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"var schema = {\r",
+							"    \"items\": {\r",
+							"        \"type\": \"boolean\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"var data1 = [true, false];\r",
+							"var data2 = [true, 123];\r",
+							"\r",
+							"pm.test('Schema on age is valid', function () {\r",
+							"    pm.expect(tv4.validate(\"age\", 26,)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=b8b0c94c-3573-4688-b838-f79673e891b6",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b8b0c94c-3573-4688-b838-f79673e891b6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change the name of user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Users name is change on Iryna Shaboian\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Iryna Shaboian\",\r\n    \"age\": 26,\r\n    \"gender\": \"{{Gender of user}}\",\r\n    \"city\": \"Kyiv\",\r\n    \"id\": \"e13aa18a-974c-41b0-b612-9fca9de40724\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change the city of user     (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Users name is change on Karina Shaboian\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Karina\",\r\n    \"age\": 26,\r\n    \"gender\": \"{{Gender of user}}\",\r\n    \"city\": \"Kremenchuk\",\r\n    \"id\": \"e13aa18a-974c-41b0-b612-9fca9de40724\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change a valid age to an invalid age   (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response show a massage about error\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"Unexpected token\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Karina Shaboian\",\r\n    \"age\": 26*,\r\n    \"gender\": \"{{Gender of user}}\",\r\n    \"city\": \"Kyiv\",\r\n    \"id\": \"b8b0c94c-3573-4688-b838-f79673e891b5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Create user URI}}/users",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user with valid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is delete\", function () {\r",
+							"    pm.response.to.have.body(\"No user found\");\r",
+							"pm.test(\"Status code name has only 200, OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=b8b0c94c-3573-4688-b838-f79673e891b5",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "b8b0c94c-3573-4688-b838-f79673e891b5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user with non-existent ID (II level)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is delete\", function () {\r",
+							"    pm.response.to.have.body(\"No user found\");\r",
+							"pm.test(\"Status code name has only 200, OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=ae8f51ad-484a-4540-ab3c-717c0efe3a82",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "ae8f51ad-484a-4540-ab3c-717c0efe3a82"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user with previously deleted ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is delete\", function () {\r",
+							"    pm.response.to.have.body(\"No user found\");\r",
+							"pm.test(\"Status code name has only 200, OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Create user URI}}/users?id=ad47e661-6b2a-4a81-aec4-671422181913",
+					"host": [
+						"{{Create user URI}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "ad47e661-6b2a-4a81-aec4-671422181913"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Create user URI",
+			"value": "https://em.staging.api.onereach.ai/http/1b3bebb7-e882-4f1e-a74b-ee381bfa69d6"
+		},
+		{
+			"key": "User ID",
+			"value": "id=b587d3ee-2f1f-4591-a490-723461f4a1f7"
+		},
+		{
+			"key": "Name of user",
+			"value": "Anush Shaboian",
+			"type": "string"
+		},
+		{
+			"key": "Gender of user",
+			"value": "female",
+			"type": "string"
+		}
+	]
+}
